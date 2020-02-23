@@ -1,20 +1,85 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/World.gd" type="Script" id=2]
+[ext_resource path="res://Assets/kenney.nl/smoke_03.png" type="Texture" id=3]
+[ext_resource path="res://Assets/rigzsoft/Liquids/raindrop.png" type="Texture" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=4]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.451852, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.830078, 0.665414, 0.0421524, 1, 1, 0.247059, 0, 0.85098 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.254545 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 20, 1 )
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 35.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 15.0
+angle = 45.0
+angle_random = 1.0
+scale = 15.0
+scale_curve = SubResource( 8 )
+color_ramp = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 100, 100, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 5.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 10.0
+color = Color( 0.294118, 0.498039, 0.596078, 1 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Particles1" type="Particles2D" parent="."]
-position = Vector2( 128, 256 )
+show_behind_parent = true
+material = SubResource( 4 )
+position = Vector2( 170.981, 409.733 )
+rotation = -1.5708
+amount = 200
+lifetime = 5.0
+process_material = SubResource( 1 )
 
 [node name="Particles2" type="Particles2D" parent="."]
-position = Vector2( 512, 256 )
+position = Vector2( 535.772, 310.251 )
+rotation = 3.14159
+lifetime = 4.5
+process_material = SubResource( 9 )
+texture = ExtResource( 3 )
 
 [node name="Particles3" type="Particles2D" parent="."]
-position = Vector2( 896, 256 )
+show_behind_parent = true
+position = Vector2( 896, 256.95 )
+lifetime = 4.5
+process_material = SubResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 512, 304 )
+current = true
 script = ExtResource( 1 )
